@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BCrypt.Net;
-using Microsoft.AspNetCore.Authorization; // Required for [Authorize]
+using Microsoft.AspNetCore.Authorization;
+using System.Linq; // Required for .CountAsync()
 
 namespace BugTrackingSystem.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // Apply [Authorize] to the entire controller. All actions require authentication.
-    [Authorize]
+    [Authorize] // Apply [Authorize] to the entire controller. All actions require authentication.
     public class EmployeesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -151,18 +151,29 @@ namespace BugTrackingSystem.Api.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
+            var employeeToDelete = await _context.Employees.FindAsync(id);
+            if (employeeToDelete == null)
             {
                 return NotFound();
             }
 
-            _context.Employees.Remove(employee);
+            // CRITICAL SAFEGUARD: Prevent deleting the last Administrator account
+            if (employeeToDelete.Role == "Administrator")
+            {
+                var adminCount = await _context.Employees.CountAsync(e => e.Role == "Administrator");
+                if (adminCount <= 1) // If there's 1 or fewer admins, prevent deletion
+                {
+                    return BadRequest("Cannot delete the last Administrator account. At least one Administrator must remain in the system.");
+                }
+            }
+
+            _context.Employees.Remove(employeeToDelete);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
+        // Helper method to check if an employee exists
         private bool EmployeeExists(int id)
         {
             return _context.Employees.Any(e => e.EmployeeId == id);

@@ -1,7 +1,20 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\BugTrackingSystem\\BugTrackingSystem.Api\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{326DD489-1D20-4561-8729-CE782563EB3A}|BugTrackingSystem.Api.csproj|c:\\users\\pruthviraj.p.mane\\documents\\cdac-assignment\\dotnet\\websites\\bugtrackingsystem\\bugtrackingsystem.api\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{326DD489-1D20-4561-8729-CE782563EB3A}|BugTrackingSystem.Api.csproj|solutionrelative:controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{326DD489-1D20-4561-8729-CE782563EB3A}|BugTrackingSystem.Api.csproj|c:\\users\\pruthviraj.p.mane\\documents\\cdac-assignment\\dotnet\\websites\\bugtrackingsystem\\bugtrackingsystem.api\\controllers\\bugscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{326DD489-1D20-4561-8729-CE782563EB3A}|BugTrackingSystem.Api.csproj|solutionrelative:controllers\\bugscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{326DD489-1D20-4561-8729-CE782563EB3A}|BugTrackingSystem.Api.csproj|c:\\users\\pruthviraj.p.mane\\documents\\cdac-assignment\\dotnet\\websites\\bugtrackingsystem\\bugtrackingsystem.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{326DD489-1D20-4561-8729-CE782563EB3A}|BugTrackingSystem.Api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,6 +31,43 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EmployeesController.cs",
+              "DocumentMoniker": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\BugTrackingSystem\\BugTrackingSystem.Api\\Controllers\\EmployeesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EmployeesController.cs",
+              "ToolTip": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\BugTrackingSystem\\BugTrackingSystem.Api\\Controllers\\EmployeesController.cs",
+              "RelativeToolTip": "Controllers\\EmployeesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-01T12:54:47.139Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BugsController.cs",
+              "DocumentMoniker": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\BugTrackingSystem\\BugTrackingSystem.Api\\Controllers\\BugsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\BugsController.cs",
+              "ToolTip": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\BugTrackingSystem\\BugTrackingSystem.Api\\Controllers\\BugsController.cs",
+              "RelativeToolTip": "Controllers\\BugsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-01T11:24:04.137Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\BugTrackingSystem\\BugTrackingSystem.Api\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\BugTrackingSystem\\BugTrackingSystem.Api\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-01T10:13:54.893Z"
             }
           ]
         }

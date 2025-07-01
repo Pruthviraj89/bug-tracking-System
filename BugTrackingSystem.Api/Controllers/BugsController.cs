@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization; // Required for [Authorize]
-using System.Security.Claims; // Required to access user claims
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace BugTrackingSystem.Api.Controllers
 {
@@ -25,11 +25,9 @@ namespace BugTrackingSystem.Api.Controllers
         // Helper to get current authenticated user's ID
         private int GetCurrentUserId()
         {
-            // The NameIdentifier claim (ClaimTypes.NameIdentifier) holds the EmployeeId
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
             {
-                // This should ideally not happen if [Authorize] is working correctly
                 throw new UnauthorizedAccessException("User ID not found or invalid in token.");
             }
             return userId;
@@ -138,7 +136,6 @@ namespace BugTrackingSystem.Api.Controllers
         [Authorize(Roles = "Tester")]
         public async Task<ActionResult<Bug>> PostBug(Bug bug)
         {
-            // Ensure the reportedById matches the authenticated user's ID
             var currentUserId = GetCurrentUserId();
             if (bug.ReportedById != currentUserId)
             {
@@ -190,7 +187,7 @@ namespace BugTrackingSystem.Api.Controllers
         // PUT: api/Bugs/5
         // Complex authorization:
         // - Testers can modify their own bugs IF IsModifiable is true.
-        // - Programmers can assign/reassign bugs and change status.
+        // - Programmers can assign/reassign bugs and change status only if assigned to them.
         // - Administrators can do anything.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBug(int id, Bug bug)
@@ -218,30 +215,26 @@ namespace BugTrackingSystem.Api.Controllers
             // 1. Administrator can do anything
             if (currentUserRole == "Administrator")
             {
-                // Admin can update all fields freely
                 existingBug.Name = bug.Name;
                 existingBug.Description = bug.Description;
                 existingBug.Status = bug.Status;
                 existingBug.AssignedToId = bug.AssignedToId;
                 existingBug.AssignedAt = bug.AssignedToId.HasValue ? DateTime.UtcNow : (DateTime?)null;
-                existingBug.IsModifiable = bug.IsModifiable; // Admin can even override this flag
+                existingBug.IsModifiable = bug.IsModifiable;
             }
             // 2. Tester's permissions
             else if (currentUserRole == "Tester")
             {
-                // Tester can only modify THEIR OWN bugs
                 if (existingBug.ReportedById != currentUserId)
                 {
                     return Forbid("You can only modify bugs you have reported.");
                 }
-
-                // Tester can only modify if IsModifiable is true (i.e., not assigned)
                 if (!existingBug.IsModifiable)
                 {
                     return Forbid("This bug is currently assigned and cannot be modified by the reporter.");
                 }
 
-                // Tester can only update Name and Description
+                // Testers can only update Name and Description
                 existingBug.Name = bug.Name;
                 existingBug.Description = bug.Description;
 
@@ -251,43 +244,55 @@ namespace BugTrackingSystem.Api.Controllers
                     return Forbid("Testers cannot change bug status or assignment.");
                 }
             }
-            // 3. Programmer's permissions
+            // 3. Programmer's permissions (CRITICAL FIX HERE)
             else if (currentUserRole == "Programmer")
             {
-                // Programmers can only update Status and Assignment
-                // They cannot change Name or Description
+                // Programmers cannot change Name or Description
                 if (existingBug.Name != bug.Name || existingBug.Description != bug.Description)
                 {
                     return Forbid("Programmers cannot modify bug name or description.");
                 }
 
-                existingBug.Status = bug.Status;
-                existingBug.AssignedToId = bug.AssignedToId;
-
-                // If a programmer assigns the bug, IsModifiable becomes false
-                if (bug.AssignedToId.HasValue && existingBug.AssignedToId != bug.AssignedToId)
+                // Check if the bug is unassigned AND the programmer is assigning it to themselves
+                if (!existingBug.AssignedToId.HasValue && bug.AssignedToId == currentUserId)
                 {
+                    existingBug.AssignedToId = currentUserId;
                     existingBug.AssignedAt = DateTime.UtcNow;
-                    existingBug.IsModifiable = false;
-                    existingBug.Status = "Assigned"; // Set status to assigned by default on assignment
+                    existingBug.IsModifiable = false; // Once assigned, reporter cannot modify
+                    existingBug.Status = "Assigned"; // Default to Assigned when first taken
                 }
-                // If a programmer unassigns the bug (sets AssignedToId to null)
-                else if (!bug.AssignedToId.HasValue && existingBug.AssignedToId.HasValue)
+                // Check if the bug is assigned to the current programmer
+                else if (existingBug.AssignedToId == currentUserId)
                 {
-                    existingBug.AssignedAt = null;
-                    existingBug.IsModifiable = true; // Becomes modifiable again if unassigned
-                    // Status might revert to "New" or stay as is, depending on desired flow.
-                    // For now, let's keep the status as is unless explicitly changed.
+                    // Allow status change
+                    existingBug.Status = bug.Status;
+
+                    // Allow unassignment if status is changing to New or if explicitly unassigned
+                    if (!bug.AssignedToId.HasValue)
+                    {
+                        existingBug.AssignedToId = null;
+                        existingBug.AssignedAt = null;
+                        existingBug.IsModifiable = true; // Becomes modifiable again if unassigned
+                    }
+                    // Prevent assignment to someone else
+                    else if (bug.AssignedToId.HasValue && bug.AssignedToId != currentUserId)
+                    {
+                        return Forbid("Programmers can only assign bugs to themselves or modify bugs assigned to them.");
+                    }
                 }
+                else // Bug is assigned to someone else, or programmer is trying to assign to someone else
+                {
+                    return Forbid("You can only modify bugs assigned to you.");
+                }
+
                 // If programmer changes status to Resolved/Closed, it's no longer modifiable by reporter
-                else if (bug.Status == "Resolved" || bug.Status == "Closed")
+                if (existingBug.Status == "Resolved" || existingBug.Status == "Closed")
                 {
                     existingBug.IsModifiable = false;
                 }
             }
             else
             {
-                // Should not happen with [Authorize] but good for safety
                 return Forbid("Unauthorized role.");
             }
 

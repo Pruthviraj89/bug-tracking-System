@@ -156,3 +156,4 @@ C:\Users\PRUTHVIRAJ.P.MANE\Documents\CDAC-ASSIGNMENT\dotNet\WebSites\BugTracking
 C:\Users\PRUTHVIRAJ.P.MANE\Documents\CDAC-ASSIGNMENT\dotNet\WebSites\BugTrackingSystem\BugTrackingSystem.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\PRUTHVIRAJ.P.MANE\Documents\CDAC-ASSIGNMENT\dotNet\WebSites\BugTrackingSystem\BugTrackingSystem.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\PRUTHVIRAJ.P.MANE\Documents\CDAC-ASSIGNMENT\dotNet\WebSites\BugTrackingSystem\BugTrackingSystem.Api\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\PRUTHVIRAJ.P.MANE\Documents\CDAC-ASSIGNMENT\dotNet\WebSites\BugTrackingSystem\BugTrackingSystem.Api\obj\Debug\net9.0\BugTrackingSystem.Api.sourcelink.json
