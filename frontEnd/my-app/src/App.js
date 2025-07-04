@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
 import BugList from './components/BugList';
 import BugReportForm from './components/BugReportForm';
-import EmployeeList from './components/EmployeeList'; // Import the new component
+import EmployeeList from './components/EmployeeList';
 import { Button, Container, Navbar, Nav, Alert } from 'react-bootstrap';
 import { jwtDecode } from 'jwt-decode';
 
@@ -45,7 +45,7 @@ function App() {
         setUserRole(payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
         setUsername(payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']);
         setUserId(parseInt(payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']));
-        setCurrentView('bugList'); // Default view after login
+        setCurrentView('bugList');
         setSuccessMessage('Login successful!');
         setTimeout(() => setSuccessMessage(''), 3000);
       } catch (e) {
@@ -65,46 +65,79 @@ function App() {
     setUserRole(null);
     setUsername(null);
     setUserId(null);
-    setCurrentView('bugList'); // Reset view on logout
+    setCurrentView('bugList');
     setSuccessMessage('Logged out successfully.');
     setTimeout(() => setSuccessMessage(''), 3000);
   };
 
-  // Callback to refresh views after an action (bug or employee)
   const handleActionCompleted = () => {
-    // For now, simply setting success message and letting components re-fetch on mount/props change
     setSuccessMessage('Action completed successfully!');
     setTimeout(() => setSuccessMessage(''), 3000);
-    // If you need more granular refresh, you'd pass a fetch function down to BugList/EmployeeList
   };
 
   return (
     <div className="App">
       {isAuthenticated ? (
         <>
-          <Navbar bg="dark" variant="dark" expand="lg" className="shadow-sm">
+          <Navbar bg="dark" variant="dark" expand="lg" className="shadow-lg" style={{ background: 'linear-gradient(90deg, #2c3e50, #34495e)' }}>
             <Container>
-              <Navbar.Brand href="#home">Bug Tracker</Navbar.Brand>
+              <Navbar.Brand href="#home" style={{ fontWeight: '600', color: '#20c997' }}>Bug Tracker</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <Nav.Link onClick={() => setCurrentView('bugList')} active={currentView === 'bugList'}>
+                  <Nav.Link
+                    onClick={() => setCurrentView('bugList')}
+                    active={currentView === 'bugList'}
+                    className="mx-2"
+                    style={{ color: currentView === 'bugList' ? '#20c997' : '#ffffff', fontWeight: '500' }}
+                  >
                     Bugs
                   </Nav.Link>
                   {userRole === "Tester" && (
-                    <Nav.Link onClick={() => setCurrentView('reportBug')} active={currentView === 'reportBug'}>
+                    <Nav.Link
+                      onClick={() => setCurrentView('reportBug')}
+                      active={currentView === 'reportBug'}
+                      className="mx-2"
+                      style={{ color: currentView === 'reportBug' ? '#20c997' : '#ffffff', fontWeight: '500' }}
+                    >
                       Report Bug
                     </Nav.Link>
                   )}
                   {userRole === "Administrator" && (
-                    <Nav.Link onClick={() => setCurrentView('employees')} active={currentView === 'employees'}>
+                    <Nav.Link
+                      onClick={() => setCurrentView('employees')}
+                      active={currentView === 'employees'}
+                      className="mx-2"
+                      style={{ color: currentView === 'employees' ? '#20c997' : '#ffffff', fontWeight: '500' }}
+                    >
                       Employees
                     </Nav.Link>
                   )}
                 </Nav>
                 <Nav>
-                  {username && <Navbar.Text className="me-3">Signed in as: <strong>{username} ({userRole})</strong></Navbar.Text>}
-                  <Button variant="outline-light" onClick={handleLogout} className="rounded-pill">
+                  {username && (
+                    <Navbar.Text className="me-3" style={{ color: '#e9ecef' }}>
+                      Signed in as: <strong>{username} ({userRole})</strong>
+                    </Navbar.Text>
+                  )}
+                  <Button
+                    variant="outline-light"
+                    onClick={handleLogout}
+                    className="rounded-pill"
+                    style={{
+                      borderColor: '#20c997',
+                      color: '#20c997',
+                      transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = '#20c997';
+                      e.target.style.color = '#ffffff';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = 'transparent';
+                      e.target.style.color = '#20c997';
+                    }}
+                  >
                     Logout
                   </Button>
                 </Nav>
@@ -112,9 +145,8 @@ function App() {
             </Container>
           </Navbar>
 
-          <Container className="mt-4">
-            {successMessage && <Alert variant="success" className="text-center">{successMessage}</Alert>}
-            
+          <Container className="mt-5">
+            {successMessage && <Alert variant="success" className="rounded-pill text-center">{successMessage}</Alert>}
             {currentView === 'bugList' && (
               <BugList
                 currentUserRole={userRole}
@@ -126,9 +158,7 @@ function App() {
               <BugReportForm onBugReported={handleActionCompleted} />
             )}
             {currentView === 'employees' && userRole === "Administrator" && (
-              <EmployeeList
-                currentUserRole={userRole}
-              />
+              <EmployeeList currentUserRole={userRole} />
             )}
           </Container>
         </>

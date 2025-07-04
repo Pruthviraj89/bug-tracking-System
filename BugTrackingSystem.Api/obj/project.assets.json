@@ -4790,11 +4790,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\BugTrackingSystem\\BugTrackingSystem.Api\\BugTrackingSystem.Api.csproj",
+      "projectUniqueName": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\bugx\\BugTrackingSystem.Api\\BugTrackingSystem.Api.csproj",
       "projectName": "BugTrackingSystem.Api",
-      "projectPath": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\BugTrackingSystem\\BugTrackingSystem.Api\\BugTrackingSystem.Api.csproj",
+      "projectPath": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\bugx\\BugTrackingSystem.Api\\BugTrackingSystem.Api.csproj",
       "packagesPath": "C:\\Users\\PRUTHVIRAJ.P.MANE\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\BugTrackingSystem\\BugTrackingSystem.Api\\obj\\",
+      "outputPath": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\bugx\\BugTrackingSystem.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

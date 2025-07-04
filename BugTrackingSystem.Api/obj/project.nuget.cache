@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ixyLm1IR/qo=",
+  "dgSpecHash": "f/98P9tsvko=",
   "success": true,
-  "projectFilePath": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\BugTrackingSystem\\BugTrackingSystem.Api\\BugTrackingSystem.Api.csproj",
+  "projectFilePath": "C:\\Users\\PRUTHVIRAJ.P.MANE\\Documents\\CDAC-ASSIGNMENT\\dotNet\\WebSites\\bugx\\BugTrackingSystem.Api\\BugTrackingSystem.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PRUTHVIRAJ.P.MANE\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\PRUTHVIRAJ.P.MANE\\.nuget\\packages\\bouncycastle.cryptography\\2.5.1\\bouncycastle.cryptography.2.5.1.nupkg.sha512",
